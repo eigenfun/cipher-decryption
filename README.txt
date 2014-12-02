@@ -1,97 +1,37 @@
-The goal of this problem is to write a program that decrypts a set of
-Tweets that have been encrypted with a simple substitution cipher.
+This is a python application for deciphering substitution encryption. 
+It uses word statistics from an open corpus to infer words in the encrypted messages and thus arrive at the substitution cipher.
 
-Input Data
-----------
-You have been given two data files. 
+The repository contains:
 
-"encoded-en.txt" is a set of short messages (e.g. Tweets) in English,
-where each has been encrypted using a simple substitution cipher. Such
-a cipher works by replacing all occurrences of a character with a
-different (randomly selected, but consistent) character. The
-substitution is not case sensitive. 
+Python Source Code:
+   	  - decode.py (entry point for the implementation)
+   	  - corpus.py, cipher.py (helper classes)
+   	  - textutil.py (module with useful text manipulation functions)
+   	  - solver.py (the main class implementing the decoding algorithm)
 
-For example:
+   	  Test:
+   	  - testdecode.py (a test suite that runs the decoding algorithm on two additional test data)
+   	  - ./data/quotes.txt, ./data/raven.txt (two plain text files used for testing the robustness of the code)
+   	  - ./data/quotes.txt-enc, ./data/raven.txt-enc (randomly encoded versions of the two pain text data files)
 
-Original message: "Hello world."
-Encrypted message: "Lkccz mzfca."
+   	  Result:
+   	  - decoded.txt (a decoded version of the encoded-en.txt from a sample run)
+   	  - decryption_cipher.txt (character mapping char_encoded -> char_plain that was computed by the code and used to decode the encoded file)
+   	  - encryption_cipher.txt (character mapping char_plain -> char_encoded that was used to encrypt the plain text)
 
-Cipher:
-d -> a
-e -> k
-h -> l
-l -> c
-o -> z
-r -> f
-w -> m
+   	  
+To run the code:
 
-For this problem white space and punctuation are not substituted.
+      You can run the code on the command line with default settings simply by invoking (from the root directory):
 
-"corpus-en.txt" is a corpus of English text consisting of the contents
-of a number of books.
+   	  		python ./decode.py
 
+   	  This assumes all the input files to be present in the current directory, and writes the output files as mnetioned above.
 
-Your Program
-------------
-We prefer that you code this in python.  If you would like to submit
-solutions in other programming languages, we will certainly read them.
-Language nimbleness is an important skill.  If non-standard libraries
-are required to run the solution you need to provide them (ideally
-none).
+   	  Optionally, you can specify the input files (corpus and encoded files) as follows:
 
-Your program should be runnable from the command line and output at
-least two things:
+   	    	python decode.py ./data/corpus-en.txt ./data/quotes.txt-enc
 
-(1) The decryption cipher (i.e. the inverse mapping of encoded
-character back to original), in a single text file with the format:
+   	  You can also run the test code (that uses two test data set in the ./data directory) directly:
 
-<encrypted> -> <decrypted>
-...
-
-for each character. No header row, thus there should be 26 rows (one
-for each English letter).
-
-e.g.
-a -> z
-b -> y
-c -> x
-...
-z -> a
-
-(2) The original Tweets decrypted based on this decryption cipher.
-This should be in a single text file, following the same formatting as
-the encrypted messages provided.
-
-
-You should submit at the conclusion of the exercise:
-
-- All code written
-
-- Example output files as specified above
-
-- Any supplementary files (e.g. tests, data)
-
-- A brief write-up explaining your approach, how well it worked, what
-  further avenues you might explore given time, along with any
-  necessary instructions on how to run the code. Specify the language
-  version if important to running the solution.
-
-
-
-Important Notes
----------------
-
-In addition to evaluating the simplicity and cleverness of your
-technical approach, we also give marks for ease of use, engineering
-hygiene, craftmanship & style.
-
-Correct solutions get the reverse cipher without fail.  That is,
-programs should *not* require repeated manual operation to eventually
-get a valid reverse cipher.
-
-Your program should be sufficiently generalized that it can be run on
-*other* input files, or even incorporated into a larger system.  We
-want to see how you organize the interface to your algorithm.
-
-Pythonic style counts.  `pip install pylint` and aim for >8.  Use the
-python standard library.
+   	  		python testdecode.py
